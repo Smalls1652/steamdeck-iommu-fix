@@ -17,10 +17,11 @@ then
     currentDateTime=$(date +"%Y-%m-%d_%H-%M-%S")
     echo -e "- Backing up current GRUB config to '~/grub.${currentDateTime}.bak'"
     cp /etc/default/grub "/home/deck/grub.${currentDateTime}.bak"
+    rm /etc/default/grub
 
     # Replace 'amd_iommu=off' to 'amd_iommu=on iommu=pt' in the GRUB config.
     echo -e "- Replacing 'amd_iommu=off' to 'amd_iommu=on iommu=pt'"
-    cat /etc/default/grub |  sed -E 's/amd_iommu=off/amd_iommu=on iommu=pt/' > /etc/default/grub
+    cat "/home/deck/grub.${currentDateTime}.bak" |  sed -E 's/amd_iommu=off/amd_iommu=on iommu=pt/' > /etc/default/grub
 
     # Run 'grub-mkconfig' to use the updated parameters.
     echo -e "- Rebuilding GRUB with updated parameters\n-----------------------\n"

@@ -16,7 +16,7 @@ then
     # Backup the current GRUB config to the user's home dir.
     currentDateTime=$(date +"%Y-%m-%d_%H-%M-%S")
     echo -e "- Backing up current GRUB config to '~/grub.${currentDateTime}.bak'"
-    cp /etc/default/grub "~/grub.${currentDateTime}.bak"
+    cp /etc/default/grub "/home/deck/grub.${currentDateTime}.bak"
 
     # Replace 'amd_iommu=off' to 'amd_iommu=on iommu=pt' in the GRUB config.
     echo -e "- Replacing 'amd_iommu=off' to 'amd_iommu=on iommu=pt'"
@@ -27,7 +27,7 @@ then
     grub-mkconfig -o /efi/EFI/steamos/grub.cfg
     echo -e "\n-----------------------\n"
 
-    # Re-enable the read-only filesystem
+    # Re-enable the read-only filesystem.
     echo -e "- Enabling read-only filesystem"
     steamos-readonly enable
 
